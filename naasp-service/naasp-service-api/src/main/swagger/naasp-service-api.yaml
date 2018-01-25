@@ -1,0 +1,189 @@
+swagger: '2.0'
+info:
+  version: '0.0.1'
+  title: NAASP Web Service
+  description:
+produces:
+  - application/json
+tags:
+  - Service
+schemes:
+  - http
+  - https
+basePath: '/'
+paths:
+  '/v1/admin/user/create':
+    post:
+      summary: Allows an admin to create a new user.
+      operationId: adminUserCreate
+      parameters:
+        - name: userCreate
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UserCreate'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        '500':
+          description: INTERNAL SERVER ERROR
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - User
+  '/v1/admin/user/{uid}/update':
+    post:
+      summary: Allows an admin to update a user.
+      operationId: adminUserUpdate
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          type: string
+        - name: user
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        '500':
+          description: INTERNAL SERVER ERROR
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - User
+  '/v1/admin/user/{uid}/delete':
+    post:
+      summary: Allows an admin to delete a user.
+      operationId: adminUserDelete
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          type: string
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        '500':
+          description: INTERNAL SERVER ERROR
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - User
+  '/v1/admin/user/search':
+    get:
+      summary: Allows an admin to search for a user.
+      operationId: adminUserSearch
+      parameters:
+        - name: userSearch
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UserSearch'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UserList'
+        '500':
+          description: INTERNAL SERVER ERROR
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - User
+  '/v1/healthcheck':
+    get:
+      summary: This is for testing purposes until spring healthcheck is implemented.
+      operationId: healthcheck
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        '500':
+          description: INTERNAL SERVER ERROR
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - Health
+definitions:
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+  SuccessResponse:
+    type: object
+    properties:
+      message:
+        type: string
+  UserCreate:
+    type: object
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+      useTempPassword:
+        type: bool
+  UserSearch:
+    type: object
+    properties:
+      query:
+        type: string
+  UserList:
+    type: array
+    items:
+      $ref: '#/definitions/User'
+  UserDetails:
+    type: object
+    properties:
+      fullName:
+        type: string
+  AuthDetails:
+    type: object
+    properties:
+      username:
+        type: string
+      accountExpired:
+        type: bool
+      accountLocked:
+        type: bool
+      credentialsExpired:
+        type: bool
+      enabled:
+        type: bool
+  User:
+    type: object
+    properties:
+      authDetails:
+        $ref: '#/definitions/AuthDetails'
+      userDetails:
+        $ref: '#/definitions/UserDetails'

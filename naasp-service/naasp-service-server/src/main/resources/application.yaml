@@ -1,0 +1,22 @@
+security:
+  basic:
+    enabled: false
+
+oauth2:
+  client:
+      clientId: SampleClientId
+      clientSecret: secret
+      accessTokenUri: http://localhost:8080/auth/oauth/token
+      userAuthorizationUri: http://localhost:8080/auth/oauth/authorize
+
+naasp:
+  mongo:
+    host: localhost
+    port: 27017
+    database: naasp
+    socketTimeout: 10000
+    connectTimeout: 5000
+    waitTimeout: 10000
+    readPreference: nearest
+    writeConcern: majority
+    ignoreSSL: true

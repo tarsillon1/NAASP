@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>naasp-service</artifactId>
+        <groupId>naasp</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>naasp-service-server</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <spring.fox.version>2.8.0</spring.fox.version>
+        <jackson.version>2.9.3</jackson.version>
+        <jackson-threetenbp-version>2.6.4</jackson-threetenbp-version>
+        <javax.version>2.2.8</javax.version>
+
+        <swagger.source.service>${project.parent.basedir}/naasp-service-api/src/main/swagger/naasp-service-api.yaml</swagger.source.service>
+        <naasp.api.service.package>com.teamrocket.naasp.service</naasp.api.service.package>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${spring.fox.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.joschi.jackson</groupId>
+            <artifactId>jackson-datatype-threetenbp</artifactId>
+            <version>${jackson-threetenbp-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${javax.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>naasp</groupId>
+            <artifactId>naasp-service-auth</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <version>${swagger.codegen.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>server-service</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${swagger.source.service}</inputSpec>
+                            <language>spring</language>
+                            <templateDirectory>src/main/swagger/templates</templateDirectory>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <configOptions>
+                                <sourceFolder>src/main/java</sourceFolder>
+                                <apiPackage>${naasp.api.service.package}.api</apiPackage>
+                                <modelPackage>${naasp.api.service.package}.model</modelPackage>
+                                <library>spring-mvc</library>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
