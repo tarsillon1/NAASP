@@ -51,7 +51,7 @@ public class DoaClientTokenServices implements ClientTokenServices {
         if (clientTokenDoa.get(clientToken.getId()) == null) {
             clientTokenDoa.create(clientToken);
         } else {
-            clientTokenDoa.update(clientToken.getId(), clientToken);
+            clientTokenDoa.update(clientToken);
         }
     }
 

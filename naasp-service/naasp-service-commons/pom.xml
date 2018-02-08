@@ -10,7 +10,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>naasp</groupId>
     <artifactId>naasp-service-commons</artifactId>
     <version>1.0-SNAPSHOT</version>
 

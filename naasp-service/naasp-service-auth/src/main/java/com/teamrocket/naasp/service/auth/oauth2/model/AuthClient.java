@@ -1,6 +1,5 @@
 package com.teamrocket.naasp.service.auth.oauth2.model;
 
-import com.teamrocket.naasp.service.auth.user.AuthRole;
 import org.springframework.data.annotation.Id;
 
 import java.util.*;
@@ -19,7 +18,7 @@ public class AuthClient {
     private Set<String> resourceIds = Collections.emptySet();
     private Set<String> authorizedGrantTypes = Collections.emptySet();
     private Set<String> registeredRedirectUris;
-    private List<AuthRole> authorities = Collections.emptyList();
+    private List<String> authorities = Collections.emptyList();
     private Integer accessTokenValiditySeconds;
     private Integer refreshTokenValiditySeconds;
     private Map<String, Object> additionalInformation = new LinkedHashMap<String, Object>();
@@ -33,7 +32,7 @@ public class AuthClient {
                       Set<String> resourceIds,
                       Set<String> authorizedGrantTypes,
                       Set<String> registeredRedirectUris,
-                      List<AuthRole> authorities,
+                      List<String> authorities,
                       Integer accessTokenValiditySeconds,
                       Integer refreshTokenValiditySeconds,
                       Map<String, Object> additionalInformation,
@@ -99,11 +98,11 @@ public class AuthClient {
         this.registeredRedirectUris = registeredRedirectUris;
     }
 
-    public List<AuthRole> getAuthorities() {
+    public List<String> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(List<AuthRole> authorities) {
+    public void setAuthorities(List<String> authorities) {
         this.authorities = authorities;
     }
 

@@ -40,7 +40,7 @@ public class DoaApprovalStore implements ApprovalStore {
         for (AuthApproval authApproval : mongoApprovals) {
             if (handleRevocationsAsExpiry) {
                 authApproval.setExpiresAt(LocalDate.now());
-                authApprovalDoa.update(authApproval.getId(), authApproval);
+                authApprovalDoa.update(authApproval);
             } else {
                authApprovalDoa.delete(authApproval.getId());
             }

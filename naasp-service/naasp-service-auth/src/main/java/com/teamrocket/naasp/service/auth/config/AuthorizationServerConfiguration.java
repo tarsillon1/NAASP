@@ -3,7 +3,7 @@ package com.teamrocket.naasp.service.auth.config;
 import com.teamrocket.naasp.service.auth.oauth2.DoaApprovalStore;
 import com.teamrocket.naasp.service.auth.oauth2.DoaClientDetailsService;
 import com.teamrocket.naasp.service.auth.oauth2.DoaTokenStore;
-import com.teamrocket.naasp.service.auth.security.AuthUserAuthenticationManager;
+import com.teamrocket.naasp.service.auth.user.security.AuthUserAuthenticationManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

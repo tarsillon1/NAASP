@@ -4,10 +4,7 @@ import com.teamrocket.naasp.service.auth.oauth2.model.AuthClient;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Decorate a auth client object to support Client Details functions.
@@ -66,7 +63,12 @@ public class ClientDetailsDecorator implements ClientDetails {
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
-        return new ArrayList<>(authClient.getAuthorities());
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        for (String val: authClient.getAuthorities()) {
+            grantedAuthorities.add(() -> val);
+        }
+
+        return new ArrayList<>(grantedAuthorities);
     }
 
     @Override

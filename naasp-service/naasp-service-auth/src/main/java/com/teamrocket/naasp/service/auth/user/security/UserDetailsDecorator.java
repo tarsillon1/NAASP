@@ -1,10 +1,12 @@
-package com.teamrocket.naasp.service.auth.security;
+package com.teamrocket.naasp.service.auth.user.security;
 
 import com.teamrocket.naasp.service.auth.user.AuthUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class UserDetailsDecorator implements UserDetails {
     private AuthUser authUser;
@@ -15,7 +17,12 @@ public class UserDetailsDecorator implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authUser.getRoles();
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        for (String val: authUser.getRoles()) {
+            grantedAuthorities.add(() -> val);
+        }
+
+        return new ArrayList<>(grantedAuthorities);
     }
 
     @Override

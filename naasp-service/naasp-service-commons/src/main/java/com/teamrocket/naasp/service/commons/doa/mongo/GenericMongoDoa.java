@@ -38,19 +38,12 @@ public class GenericMongoDoa <T, ID extends Serializable> implements IGenericDoa
     }
 
     @Override
-    public T update(ID id, T object) {
+    public T update(T object) {
         try {
-            T obj = get(id);
-
-            if (obj == null) {
-                throw new ObjectNotFoundException(persistentClass, id);
-            }
-
             mongoTemplate.save(object, collectionName);
-
             return object;
         } catch (Exception e) {
-            throw new UpdateObjectException(persistentClass, id, e);
+            throw new UpdateObjectException(persistentClass, e);
         }
     }
 

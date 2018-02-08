@@ -1,12 +1,13 @@
 package com.teamrocket.naasp.service.api;
 
 import com.teamrocket.naasp.service.auth.AuthService;
-import com.teamrocket.naasp.service.exception.NAASPException;
 import com.teamrocket.naasp.service.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class V1NAASPServiceController extends V1ApiController {
+    @Autowired
     private AuthService authService;
 
     @Override

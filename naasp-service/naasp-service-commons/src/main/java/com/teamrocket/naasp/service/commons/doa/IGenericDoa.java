@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public interface IGenericDoa<T, ID extends Serializable> {
     T delete (ID id);
-    T update (ID id, T object);
+    T update (T object);
     T create (T object);
     T get (ID id);
 }

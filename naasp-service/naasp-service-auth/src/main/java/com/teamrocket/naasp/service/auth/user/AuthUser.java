@@ -22,12 +22,12 @@ public class AuthUser {
     private boolean credentialsExpired;
     private boolean enabled;
 
-    private List<AuthRole> roles;
+    private List<String> roles;
 
     public AuthUser(String password,
                     String userName,
                     String userId,
-                    List<AuthRole> roles,
+                    List<String> roles,
                     boolean accountExpired,
                     boolean accountLocked,
                     boolean credentialsExpired,
@@ -58,11 +58,11 @@ public class AuthUser {
         this.password = password;
     }
 
-    public List<AuthRole> getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<AuthRole> roles) {
+    public void setRoles(List<String> roles) {
         this.roles = roles;
     }
 

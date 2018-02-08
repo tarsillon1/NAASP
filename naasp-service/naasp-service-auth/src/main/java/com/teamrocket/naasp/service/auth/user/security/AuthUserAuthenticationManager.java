@@ -1,4 +1,4 @@
-package com.teamrocket.naasp.service.auth.security;
+package com.teamrocket.naasp.service.auth.user.security;
 
 
 import com.teamrocket.naasp.service.auth.user.AuthUser;

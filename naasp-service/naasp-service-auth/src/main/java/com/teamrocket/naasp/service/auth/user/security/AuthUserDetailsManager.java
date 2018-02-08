@@ -1,7 +1,6 @@
-package com.teamrocket.naasp.service.auth.security;
+package com.teamrocket.naasp.service.auth.user.security;
 
 import com.teamrocket.naasp.service.auth.oauth2.security.SecurityContextService;
-import com.teamrocket.naasp.service.auth.user.AuthRole;
 import com.teamrocket.naasp.service.auth.user.AuthUser;
 import com.teamrocket.naasp.service.auth.user.doa.AuthUserDao;
 import org.slf4j.Logger;
@@ -18,10 +17,10 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
-
-import static org.hibernate.validator.internal.util.CollectionHelper.newArrayList;
 
 @Component
 public class AuthUserDetailsManager implements UserDetailsManager {
@@ -52,7 +51,7 @@ public class AuthUserDetailsManager implements UserDetailsManager {
     @Override
     public void updateUser(UserDetails user) {
         validateUserDetails(user);
-        authUserDao.update(user.getUsername(), getUser(user));
+        authUserDao.update(getUser(user));
     }
 
     @Override
@@ -83,7 +82,7 @@ public class AuthUserDetailsManager implements UserDetailsManager {
 
         AuthUser authUser = authUserDao.get(username);
         authUser.setPassword(passwordEncoder.encode(newPassword));
-        authUserDao.update(username, authUser);
+        authUserDao.update(authUser);
 
         securityContextService.setAuthentication(createNewAuthentication(currentUser));
     }
@@ -113,11 +112,17 @@ public class AuthUserDetailsManager implements UserDetailsManager {
     }
 
     private AuthUser getUser(UserDetails userDetails) {
+        List<String> roles = new ArrayList<>();
+        for (GrantedAuthority val: userDetails.getAuthorities()) {
+            roles.add(val.getAuthority());
+        }
+
+        userDetails.getAuthorities();
         return new AuthUser(
                 userDetails.getPassword(),
                 userDetails.getUsername(),
                 UUID.randomUUID().toString(),
-                newArrayList(AuthRole.getRoles(userDetails.getAuthorities())),
+                roles,
                 !userDetails.isAccountNonExpired(),
                 !userDetails.isAccountNonLocked(),
                 !userDetails.isCredentialsNonExpired(),

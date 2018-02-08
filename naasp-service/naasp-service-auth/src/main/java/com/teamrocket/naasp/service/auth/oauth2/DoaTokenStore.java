@@ -65,7 +65,7 @@ public class DoaTokenStore implements TokenStore {
                 serializeAuthentication(authentication),
                 extractTokenKey(refreshToken));
 
-        accessTokenDoa.create(accessToken);
+        accessTokenDoa.storeAccessToken(accessToken);
     }
 
     @Override

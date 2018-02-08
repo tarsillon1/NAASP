@@ -3,11 +3,11 @@ package com.teamrocket.naasp.service.auth.oauth2;
 import com.teamrocket.naasp.service.auth.oauth2.doa.AuthClientDoa;
 import com.teamrocket.naasp.service.auth.oauth2.model.AuthClient;
 import com.teamrocket.naasp.service.auth.oauth2.security.ClientDetailsDecorator;
-import com.teamrocket.naasp.service.auth.user.AuthRole;
 import com.teamrocket.naasp.service.commons.doa.exception.DuplicateObjectException;
 import com.teamrocket.naasp.service.commons.doa.exception.GetObjectException;
 import com.teamrocket.naasp.service.commons.doa.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.stereotype.Component;
@@ -61,7 +61,7 @@ public class DoaClientDetailsService implements ClientDetailsService, ClientRegi
     public void updateClientDetails(ClientDetails clientDetails) throws NoSuchClientException {
         try {
             AuthClient authClient = toAuthClient(clientDetails);
-            authClientDoa.update(authClient.getClientId(), authClient);
+            authClientDoa.update(authClient);
         } catch (ObjectNotFoundException e) {
             throw new NoSuchClientException ("Client does not exist!");
         }
@@ -76,7 +76,7 @@ public class DoaClientDetailsService implements ClientDetailsService, ClientRegi
         }
 
         authClient.setClientSecret(passwordEncoder.encode(secret));
-        authClientDoa.update(authClient.getClientId(), authClient);
+        authClientDoa.update(authClient);
     }
 
     @Override
@@ -100,6 +100,11 @@ public class DoaClientDetailsService implements ClientDetailsService, ClientRegi
     }
 
     private AuthClient toAuthClient (ClientDetails clientDetails) {
+        List<String> authorities = new ArrayList<>();
+        for (GrantedAuthority val: clientDetails.getAuthorities()) {
+            authorities.add(val.getAuthority());
+        }
+
         return new AuthClient(
                 clientDetails.getClientId(),
                 passwordEncoder.encode(clientDetails.getClientSecret()),
@@ -107,7 +112,7 @@ public class DoaClientDetailsService implements ClientDetailsService, ClientRegi
                 clientDetails.getResourceIds(),
                 clientDetails.getAuthorizedGrantTypes(),
                 clientDetails.getRegisteredRedirectUri(),
-                newArrayList(AuthRole.getRoles(clientDetails.getAuthorities())),
+                authorities,
                 clientDetails.getAccessTokenValiditySeconds(),
                 clientDetails.getRefreshTokenValiditySeconds(),
                 clientDetails.getAdditionalInformation(),

@@ -1,7 +1,7 @@
 package com.teamrocket.naasp.service.config;
 
-import com.teamrocket.naasp.service.auth.security.AuthUserAuthenticationManager;
-import com.teamrocket.naasp.service.auth.security.AuthUserDetailsManager;
+import com.teamrocket.naasp.service.auth.user.security.AuthUserAuthenticationManager;
+import com.teamrocket.naasp.service.auth.user.security.AuthUserDetailsManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

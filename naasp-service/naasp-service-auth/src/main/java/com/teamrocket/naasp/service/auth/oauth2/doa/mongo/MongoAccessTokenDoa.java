@@ -3,6 +3,7 @@ package com.teamrocket.naasp.service.auth.oauth2.doa.mongo;
 import com.teamrocket.naasp.service.auth.oauth2.doa.AccessTokenDoa;
 import com.teamrocket.naasp.service.auth.oauth2.model.AccessToken;
 import com.teamrocket.naasp.service.commons.doa.exception.FindObjectException;
+import com.teamrocket.naasp.service.commons.doa.exception.UpdateObjectException;
 import com.teamrocket.naasp.service.commons.doa.mongo.GenericMongoDoa;
 import com.teamrocket.naasp.service.commons.mongo.MongoCondition;
 import org.springframework.context.annotation.Conditional;
@@ -22,6 +23,16 @@ public class MongoAccessTokenDoa extends GenericMongoDoa<AccessToken, String> im
 
     public MongoAccessTokenDoa() {
         super(COLLECTION_NAME);
+    }
+
+    @Override
+    public AccessToken storeAccessToken(AccessToken accessToken) {
+        try {
+            mongoTemplate.save(accessToken, COLLECTION_NAME);
+            return accessToken;
+        } catch (Exception e) {
+            throw new UpdateObjectException(persistentClass, e);
+        }
     }
 
     @Override

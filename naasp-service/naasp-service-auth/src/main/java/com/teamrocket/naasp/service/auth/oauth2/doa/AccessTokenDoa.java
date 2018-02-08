@@ -11,6 +11,13 @@ import java.util.Collection;
  */
 public interface AccessTokenDoa extends IGenericDoa<AccessToken, String> {
     /**
+     * If token exists, token will be updated. If not, token will be created.
+     * @param accessToken the access token.
+     * @return the access token
+     */
+    AccessToken storeAccessToken (AccessToken accessToken);
+
+    /**
      * Finds a access token by refresh token.
      * @param refreshToken the refresh token.
      * @return the access token
