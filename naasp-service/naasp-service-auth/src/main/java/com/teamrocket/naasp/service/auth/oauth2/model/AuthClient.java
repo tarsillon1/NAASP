@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * A data object that represents and oauth2 sso auth client.
  *
- * A auth client represents a user authorization credentials, roles,
+ * A auth client represents a clients authorization credentials, roles,
  * permitted scopes, and additional authentication information.
  */
 public class AuthClient {

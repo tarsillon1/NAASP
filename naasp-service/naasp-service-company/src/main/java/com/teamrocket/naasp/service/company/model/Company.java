@@ -2,6 +2,9 @@ package com.teamrocket.naasp.service.company.model;
 
 import org.springframework.data.annotation.Id;
 
+/**
+ * Representation of a company.
+ */
 public class Company {
     @Id
     private String companyId;

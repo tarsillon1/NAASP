@@ -14,8 +14,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RoleService {
-    @Autowired
     private AuthService authService;
+
+    @Autowired
+    public RoleService (AuthService authService) {
+        this.authService = authService;
+    }
 
     /**
      * Assign a role to a user, by username.

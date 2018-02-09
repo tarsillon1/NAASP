@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * Mongo implementation of a doa for storing and retrieving companies.
+ */
 @Component
 @Conditional(MongoCondition.class)
 public class MongoCompanyDoa extends GenericMongoDoa<Company, String> implements CompanyDoa {

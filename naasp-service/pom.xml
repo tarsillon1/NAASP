@@ -21,6 +21,7 @@
         <module>naasp-service-role</module>
         <module>naasp-service-commons</module>
         <module>naasp-service-company</module>
+        <module>naasp-service-user</module>
     </modules>
 
     <properties>

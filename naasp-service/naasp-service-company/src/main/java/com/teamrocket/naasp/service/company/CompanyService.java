@@ -8,6 +8,9 @@ import com.teamrocket.naasp.service.role.exception.RoleNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service for creating, getting and updating companies.
+ */
 @Service
 public class CompanyService {
     @Autowired

@@ -1,5 +1,8 @@
 package com.teamrocket.naasp.service.company.model;
 
+/**
+ * Representation of company settings.
+ */
 public class CompanySettings {
     private boolean useRegistration;
     private boolean useTwoFactor;
